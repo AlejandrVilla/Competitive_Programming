@@ -3,7 +3,7 @@
 #define ll long long int
 #define vll vector<ll>
 #define vi vector<int>
-#define LSOne(i) i & (-i)
+#define LSOne(i) ((i) & (-(i)))
 using namespace std;
 
 ll large = 100000;

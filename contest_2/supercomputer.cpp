@@ -2,7 +2,7 @@
 #include <iostream>
 #define vi vector<int>
 #define vb vector<bool>
-#define LSOne(i) i & (-i)
+#define LSOne(i) ((i) & -(i))
 using namespace std;
 
 int large=1000000;

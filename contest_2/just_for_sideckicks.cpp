@@ -3,54 +3,54 @@
 #include <set>
 #include <iostream>
 #define ll long long int
-#define vll vector<ll>
 #define vi vector<int>
-#define si set<int>
-#define misi map<int,si>
-#define LSOne(i) i & (-i)
+#define vvi vector<vi>
+#define vll vector<ll>
+#define LSOne(i) ((i) & (-(i)))
 using namespace std;
 
 int large=200000;
 
-vll FT(large+1,0);
+vi FT(large+1,0);
+vvi res(7,FT);                  // cada vector representa acumulado para una gema
 vll gems(7);
-misi pos;
 
 int n,m;
 string query;
 
-void update(int i, ll v)
+void update(int i, int j, int v)     // pos gema, ind FT, valor
 {
-    while(i<=n)
+    while(j<=n)
     {
-        FT[i] += v;
-        i+=LSOne(i);
+        res[i][j] += v;
+        j+=LSOne(j);
     }
 }
 
 void ini()
 {
-    for(int i=1 ; i<=n ; ++i)
+    for(int i=1 ; i<=6 ; ++i)
     {
-        update(i, gems[ int(query[i])-'0' ]);
-        pos[int(query[i])-'0'].insert(i);
+        for(int j=1 ; j<=n ; ++j)
+            if(int(query[j])-'0' == i)      // acumula segun la gema
+                update(i,j,1);
     }
 }
 
-ll rsq(int i)
+int rsq(int i, int j) // pos gema, indice FT
 {
-    ll suma=0;
-    while(i>0)
+    int suma=0;
+    while(j>0)
     {
-        suma += FT[i];
-        i-=LSOne(i);
+        suma += res[i][j];
+        j-=LSOne(j);
     }
     return suma;
 }
 
-ll rsq(int i, int j)
+int rsq(int k, int i, int j)    // pos gema, L, R
 {
-    return rsq(j) - rsq(i-1);
+    return rsq(k,j) - rsq(k,i-1);
 }
 
 void solve()
@@ -67,26 +67,23 @@ void solve()
         if(op==1)
         {
             int k,p;cin>>k>>p;      // k gema en la cadena por p gema
-            update(k,gems[p]- gems[ int(query[k])-'0' ]);
-            pos[int(query[k])-'0'].erase(k);
+            update(int(query[k])-'0',k,-1);
+            update(p,k,1);
             query[k] = char(p) + '0';
-            pos[int(query[k])-'0'].insert(k);
         }
         else if(op==2)
         {   
             int p;
             ll v;cin>>p>>v;         // gema[p] = v
-            for(auto it=pos[p].begin() ; it!=pos[p].end() ; ++it)
-                update(*it,v-gems[p]);
-            // for(int i=0 ; i<n ; ++i)
-            //     if(query[i] == char(p) + '0')
-            //         update(i+1,v-gems[p]);
             gems[p] = v;
         }
         else
         {
             int l,r;cin>>l>>r;
-            cout<<rsq(l,r)<<'\n';
+            ll sum=0;
+            for(int i=1 ; i<=6 ; ++i)           // acumula cada gema
+                sum+= rsq(i,l,r)*gems[i];
+            cout<<sum<<'\n';
         }
     }
 }

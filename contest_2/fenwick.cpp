@@ -2,7 +2,7 @@
 #include <iostream>
 #define ll long long int
 #define vll vector<ll>
-#define LSOne(i) i & (-i)
+#define LSOne(i) ((i) & (-(i)))
 
 using namespace std;
 
