@@ -36,9 +36,9 @@ void built(int st_i, int a, int b)
 
 int rsq(int st_i, int st_l, int st_r, int a, int b)
 {
-    if(lazy[st_i]==0 || lazy[st_i]==1)
+    if(lazy[st_i]==0 || lazy[st_i]==1)      // solo reemplaza
     {
-        st[st_i] = (st_r-st_l+1)*lazy[st_i];
+        st[st_i] = (st_r-st_l+1)*lazy[st_i];    // cant*1 o cant*0
         if(st_l!=st_r)
         {
             lazy[l(st_i)] = lazy[st_i];
@@ -46,10 +46,10 @@ int rsq(int st_i, int st_l, int st_r, int a, int b)
         }
         lazy[st_i] = -1;
     }
-    else if(lazy[st_i]==2)
+    else if(lazy[st_i]==2)              // debe revisar hijos
     {
-        st[st_i] = (st_r-st_l+1) - st[st_i];
-        if(st_l!=st_r)
+        st[st_i] = (st_r-st_l+1) - st[st_i];        // inverso
+        if(st_l!=st_r)                  // actualiza hijos
         {
             if(lazy[l(st_i)]==0)
                 lazy[l(st_i)]=1;
@@ -81,9 +81,9 @@ int rsq(int st_i, int st_l, int st_r, int a, int b)
 
 void update(int st_i, int st_l, int st_r, int i, int j, int v)      // v = 0,1,2
 {
-    if(lazy[st_i]==0 || lazy[st_i]==1)
+    if(lazy[st_i]==0 || lazy[st_i]==1)      // solo reemplaza
     {
-        st[st_i] = (st_r-st_l+1)*lazy[st_i];
+        st[st_i] = (st_r-st_l+1)*lazy[st_i];    // cant*1 o cant*0
         if(st_l!=st_r)
         {
             lazy[l(st_i)] = lazy[st_i];
@@ -91,10 +91,10 @@ void update(int st_i, int st_l, int st_r, int i, int j, int v)      // v = 0,1,2
         }
         lazy[st_i] = -1;
     }
-    else if(lazy[st_i]==2)
+    else if(lazy[st_i]==2)                  // debe revisar hijos
     {
-        st[st_i] = (st_r-st_l+1) - st[st_i];
-        if(st_l!=st_r)
+        st[st_i] = (st_r-st_l+1) - st[st_i];    // inverso
+        if(st_l!=st_r)                      // actualiza hijos
         {
             if(lazy[l(st_i)]==0)
                 lazy[l(st_i)]=1;
@@ -119,9 +119,9 @@ void update(int st_i, int st_l, int st_r, int i, int j, int v)      // v = 0,1,2
         return;
     if(i<=st_l && st_r<=j)
     {
-        if(v==0 || v==1)
-        {
-            st[st_i] = (st_r-st_l+1)*v;
+        if(v==0 || v==1)                    // solo reemplaza
+        {   
+            st[st_i] = (st_r-st_l+1)*v;     // cant*1 o cant*0
             if(st_l!=st_r)
             {
                 lazy[l(st_i)] = v;
@@ -129,10 +129,10 @@ void update(int st_i, int st_l, int st_r, int i, int j, int v)      // v = 0,1,2
             }
             return;
         }
-        else if(v==2)
+        else if(v==2)                       // debe revisar hijos
         {
-            st[st_i] = (st_r-st_l+1) - st[st_i];
-            if(st_l!=st_r)
+            st[st_i] = (st_r-st_l+1) - st[st_i];    // inverso
+            if(st_l!=st_r)                  // actualiza hijos
             {
                 if(lazy[l(st_i)]==0)
                     lazy[l(st_i)]=1;
