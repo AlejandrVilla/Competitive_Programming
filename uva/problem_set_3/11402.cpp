@@ -20,7 +20,7 @@ void print(vi& A)
     cout<<'\n';
 }
 
-void built(int st_i, int a, int b)
+void build(int st_i, int a, int b)
 {
     if(a==b)
     {
@@ -28,8 +28,8 @@ void built(int st_i, int a, int b)
         return;
     }
     int m = (a+b)/2;
-    built(l(st_i), a, m);
-    built(r(st_i), m+1, b);
+    build(l(st_i), a, m);
+    build(r(st_i), m+1, b);
     st[st_i] = st[l(st_i)] + st[r(st_i)];
 }
 
@@ -185,7 +185,7 @@ void solve()
         st[4*i+2] = 0;
         st[4*i+3] = 0;
     }
-    built(0,0,N-1);
+    build(0,0,N-1);
     int q;cin>>q;
     int query=1;
     while(q--)      // 0 babary, 1 bucanner
