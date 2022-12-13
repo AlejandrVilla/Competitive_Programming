@@ -5,8 +5,7 @@ using namespace std;
 
 bool compare(char a, char b)
 {
-    if(tolower(a) == tolower(b))
-        return a<b;
+    if(tolower(a) == tolower(b)) return a<b;
     return tolower(a) < tolower(b);
 }
 
