@@ -10,13 +10,13 @@ vi match;
 vi visited;
 int n,m;
 
-int MVC(int L)
+int MM(int L)
 {
     if(visited[L]==visitado) return 0;
     visited[L] = visitado;
     for(int R : adjacent[L])
     {
-        if(match[R] == -1 || MVC(match[R]))
+        if(match[R] == -1 || MM(match[R]))
         {
             match[R]=L;
             return 1;
@@ -45,13 +45,13 @@ void solve()
             else if(B[i]%A[j]==0)
                 adjacent[n+i].push_back(j),adjacent[j].push_back(n+i);
         }
-    int mvc=0;
+    int mm=0;
     for(int i=0 ; i<n ; ++i)
     {
         visited.assign(n,novisitado);
-        mvc+=MVC(i);
+        mm+=MM(i);
     }
-    cout<<mvc;
+    cout<<mm;
     adjacent.clear();
 }
 
